@@ -2,14 +2,17 @@
   <div class="about">
     <h1>{{id ? '編輯' : '新建'}}分類</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-        <el-form-item label="上級分類">
+        <!-- <el-form-item label="上級分類">
            <el-select v-model="model.parent">
                <el-option v-for="item in parents" :key="item._id"
                 :label="item.name" :value="item._id"></el-option>
            </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="名稱">
             <el-input v-model="model.name"></el-input>
+        </el-form-item>
+        <el-form-item label="圖片">
+            <el-input v-model="model.icon"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" native-type="submit">保存</el-button>
@@ -27,33 +30,27 @@ export default {
     data() {
         return {
             model:{},
-            parents: []
         }
     },
     methods: {
         async save(){
             if (this.id) {
-                await this.$http.put(`rest/categories/${this.id}`, this.model)
+                await this.$http.put(`rest/items/${this.id}`, this.model)
             } else {
-                await this.$http.post('rest/categories', this.model)
+                await this.$http.post('rest/items', this.model)
             }
-            this.$router.push('/categories/list')
+            this.$router.push('/items/list')
             this.$message({
                 type: 'success',
                 message: '保存成功'
             })
         },
         async fetch(){
-            const res = await this.$http.get(`rest/categories/${this.id}`)
+            const res = await this.$http.get(`rest/items/${this.id}`)
             this.model = res.data
         },
-        async fetchParent(){
-            const res = await this.$http.get(`rest/categories`)
-            this.parents = res.data
-        }
     },
     created() {
-        this.fetchParent()
         this.id && this.fetch()
     }
 }
