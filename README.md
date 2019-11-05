@@ -1,1 +1,3 @@
 # gameRepo
+    * vue
+    * nodejs
