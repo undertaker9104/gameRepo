@@ -79,15 +79,15 @@
                   :show-file-list="false"
                   :on-success="res => $set(item, 'icon', res.url)"
                 >
-                  <img v-if="model.icon" :src="model.icon" class="avatar" />
+                  <img v-if="item.icon" :src="item.icon" class="avatar" />
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
               <el-form-item label="描述">
-                <el-input type="textarea" v-model="model.description"></el-input>
+                <el-input type="textarea" v-model="item.description"></el-input>
               </el-form-item>
               <el-form-item label="小提示">
-                <el-input type="textarea" v-model="model.tips"></el-input>
+                <el-input type="textarea" v-model="item.tips"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button size="small" type="danger" @click="model.skills.splice(i, 1)">刪除</el-button>
@@ -116,7 +116,8 @@ export default {
       model: {
         scores: {
           difficult: 0
-        }
+        },
+        skills: []
       }
     };
   },
