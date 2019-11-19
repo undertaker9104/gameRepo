@@ -16,7 +16,7 @@
         <el-input v-model="model.title"></el-input>
       </el-form-item>
       <el-form-item label="詳情">
-        <el-input v-model="model.body"></el-input>
+        <vue-editor v-model="model.body" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -27,9 +27,14 @@
 
 
 <script>
+import { VueEditor } from "vue2-editor";
+
 export default {
   props: {
     id: {}
+  },
+  components: {
+    VueEditor
   },
   data() {
     return {
@@ -38,6 +43,13 @@ export default {
     };
   },
   methods: {
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await this.$http.post("upload", formData);
+      Editor.insertEmbed(cursorLocation, "image", res.data.url);
+      resetUploader();
+    },
     async save() {
       if (this.id) {
         await this.$http.put(`rest/articles/${this.id}`, this.model);
