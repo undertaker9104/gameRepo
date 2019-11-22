@@ -7,7 +7,7 @@
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="text" @click="model.items.push({})">
-          <i class="el-icon-plus"></i>添加技能
+          <i class="el-icon-plus"></i>添加廣告
         </el-button>
         <el-row type="flex" style="flex-wrap: wrap">
           <el-col :md="24" v-for="(item, i) in model.items" :key="i">
