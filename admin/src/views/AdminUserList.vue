@@ -32,7 +32,7 @@ export default {
       this.items = res.data;
     },
     async remove(row) {
-      this.$confirm(`是否確定要刪除管理員 "${row.name}"`, "提示", {
+      this.$confirm(`是否確定要刪除管理員 "${row.username}"`, "提示", {
         confirmButtonText: "確定",
         cancelButtonText: "取消",
         type: "warning"
